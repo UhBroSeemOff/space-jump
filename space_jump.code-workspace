@@ -6,6 +6,10 @@
 	],
 	"settings": {
 		"editor.defaultFormatter": "rust-lang.rust-analyzer",
-		"editor.formatOnSave": true
+		"editor.formatOnSave": true,
+		"cSpell.words": [
+			"Borderless",
+			"Fullscreen"
+		]
 	}
 }
