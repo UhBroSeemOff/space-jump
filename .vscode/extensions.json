@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "vadimcn.vscode-lldb",
+    "serayuzgur.crates",
+    "pkief.material-icon-theme",
+    "rust-lang.rust-analyzer",
+    "gruntfuggly.todo-tree"
+  ]
+}
