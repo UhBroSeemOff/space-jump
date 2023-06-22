@@ -12,7 +12,7 @@ jobs:
   build:
     env:
       RESULT_DIRECTORY: result
-      EXECUTABLE_FILE_NAME: bevy_jam
+      EXECUTABLE_FILE_NAME: space_jump
     runs-on: windows-latest
     steps:
     - name: Checkout sources
