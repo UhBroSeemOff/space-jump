@@ -1,0 +1,48 @@
+name: Build for Windows
+
+on:
+    push:
+      branches:    
+      - main
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    env:
+      RESULT_DIRECTORY: result
+      EXECUTABLE_FILE_NAME: space_jump
+    runs-on: windows-latest
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v3
+    
+    - name: Cache
+      uses: actions/cache@v2
+      with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-${{ env.EXECUTABLE_FILE_NAME }}-${{ hashFiles('**/Cargo.toml') }}
+          
+    - name: Install stable toolchain
+      uses: dtolnay/rust-toolchain@stable
+    
+    - name: Build
+      run: cargo build --release
+      
+    - name: Create result directory
+      run: New-Item -Path "${{ runner.os }}-${{ env.RESULT_DIRECTORY}}/" -ItemType "directory"
+      
+    - name: Collect binaries to result directory
+      run: Move-Item -Path "target/release/${{ env.EXECUTABLE_FILE_NAME }}.d", "target/release/${{ env.EXECUTABLE_FILE_NAME }}.exe", "assets" -Destination "${{ runner.os }}-${{ env.RESULT_DIRECTORY}}/"
+
+    - name: Publish artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ runner.os }}
+        path: "${{ runner.os }}-${{ env.RESULT_DIRECTORY}}"
