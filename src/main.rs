@@ -1,4 +1,9 @@
 use bevy::{prelude::*, window::*};
+use camera::CameraPlugin;
+use external_system::ExternalPlugin;
+
+pub mod camera;
+pub mod external_system;
 
 const RESOLUTION: Vec2 = Vec2 {
     x: 1920.0,
@@ -9,7 +14,11 @@ const TITLE: &str = "Space Jump";
 
 fn main() {
     let default_plugin = configure_default_plugin();
-    App::new().add_plugins(default_plugin).run();
+    App::new()
+        .add_plugins(default_plugin)
+        .add_plugin(ExternalPlugin)
+        .add_plugin(CameraPlugin)
+        .run();
 }
 
 fn configure_default_plugin() -> bevy::app::PluginGroupBuilder {
