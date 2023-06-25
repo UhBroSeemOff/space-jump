@@ -1,3 +1,9 @@
+pub mod ui;
+pub mod resources;
+
+use resources::*;
+use ui::UIPlugin;
+
 use bevy::{prelude::*, window::*};
 use camera::CameraPlugin;
 use external_system::ExternalPlugin;
@@ -18,6 +24,8 @@ fn main() {
         .add_plugins(default_plugin)
         .add_plugin(ExternalPlugin)
         .add_plugin(CameraPlugin)
+        .add_plugin(UIPlugin)
+        .add_state::<ApplicationState>()
         .run();
 }
 
