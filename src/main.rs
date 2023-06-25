@@ -1,6 +1,9 @@
-pub mod external_system;
 use bevy::{prelude::*, window::*};
+use camera::CameraPlugin;
 use external_system::ExternalPlugin;
+
+pub mod camera;
+pub mod external_system;
 
 const RESOLUTION: Vec2 = Vec2 {
     x: 1920.0,
@@ -14,6 +17,7 @@ fn main() {
     App::new()
         .add_plugins(default_plugin)
         .add_plugin(ExternalPlugin)
+        .add_plugin(CameraPlugin)
         .run();
 }
 
