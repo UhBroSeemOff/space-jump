@@ -1,3 +1,9 @@
+pub mod ui;
+pub mod resources;
+
+use resources::*;
+use ui::UIPlugin;
+
 use bevy::{prelude::*, window::*};
 
 const RESOLUTION: Vec2 = Vec2 {
@@ -11,6 +17,7 @@ fn main() {
     let default_plugin = configure_default_plugin();
     App::new()
         .add_plugins(default_plugin)
+        .add_plugin(UIPlugin)
         .add_state::<ApplicationState>()
         .run();
 }
@@ -34,13 +41,4 @@ fn initialize_primary_window() -> Window {
         resolution: WindowResolution::new(RESOLUTION.x, RESOLUTION.y),
         ..default()
     }
-}
-
-#[derive(States, Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
-pub enum ApplicationState {
-    #[default]
-    MainMenu,
-    Game,
-    GameOver,
-    PauseMenu
 }
