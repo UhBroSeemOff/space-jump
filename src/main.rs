@@ -5,6 +5,11 @@ use resources::*;
 use ui::UIPlugin;
 
 use bevy::{prelude::*, window::*};
+use camera::CameraPlugin;
+use external_system::ExternalPlugin;
+
+pub mod camera;
+pub mod external_system;
 
 const RESOLUTION: Vec2 = Vec2 {
     x: 1920.0,
@@ -17,6 +22,8 @@ fn main() {
     let default_plugin = configure_default_plugin();
     App::new()
         .add_plugins(default_plugin)
+        .add_plugin(ExternalPlugin)
+        .add_plugin(CameraPlugin)
         .add_plugin(UIPlugin)
         .add_state::<ApplicationState>()
         .run();
