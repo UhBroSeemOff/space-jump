@@ -19,13 +19,13 @@ impl Plugin for MainMenuPlugin {
 }
 
 pub fn initialize_menu() {
-    render_menu_background();
-    add_menu_music();
-    render_menu_ui();
+    // render_menu_background();
+    // add_menu_music();
+    // render_menu_ui();
 }
 
 pub fn destroy_menu() {
-    destroy_menu_background();
-    remove_menu_music();
-    destroy_menu_ui();
+    // destroy_menu_background();
+    // remove_menu_music();
+    // destroy_menu_ui();
 }
