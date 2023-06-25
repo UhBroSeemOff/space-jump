@@ -9,7 +9,10 @@
 		"editor.formatOnSave": true,
 		"cSpell.words": [
 			"Borderless",
-			"Fullscreen"
+			"egui",
+			"Fullscreen",
+			"Inspectable",
+			"kira"
 		]
 	}
 }

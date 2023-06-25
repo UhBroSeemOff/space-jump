@@ -8,6 +8,15 @@ edition = "2021"
 [dependencies]
 bevy = "0.10.1"
 rand = "0.8.5"
+bevy-inspector-egui = "0.18.3"
+
+[dependencies.bevy_rapier2d]
+version = "0.21"
+features = [
+   "simd-stable",
+   "debug-render-2d",
+   "parallel"
+]
 
 [dependencies.bevy_kira_audio]
 version = "0.15.0"
