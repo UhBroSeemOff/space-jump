@@ -12,8 +12,129 @@ pub fn add_menu_music() {
     println!("Start some music");
 }
 
-pub fn render_menu_ui() {
-    println!("Spawn menu ui");
+pub fn render_menu_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
+    main_menu_setup(&mut commands, &asset_server);
+}
+
+fn get_button_bundle(texture_handle: Handle<Image>) -> ButtonBundle {
+    ButtonBundle {
+        image: UiImage {
+            texture: texture_handle.clone(),
+            ..default()
+        },
+        style: DEFAULT_BUTTON_STYLE,
+        background_color: NORMAL_BUTTON_TEXT_COLOR.into(),
+        ..default()
+    }
+}
+
+fn get_text_bundle(button_text: &str, asset_server: &Res<AssetServer>) -> TextBundle {
+    TextBundle {
+        text: Text {
+            sections: vec![TextSection::new(
+                button_text,
+                get_text_style(asset_server, 30.0, NORMAL_BUTTON_TEXT_COLOR),
+            )],
+            alignment: TextAlignment::Center,
+            ..default()
+        },
+        ..default()
+    }
+}
+
+// TODO: Сделать функцию spawn_button, вынести её в сервисы
+// понять, как выносить компонент, связующий бандл в аргумент monkaHmm
+
+fn spawn_play_button(
+    object: &mut ChildBuilder,
+    texture_handle: Handle<Image>,
+    asset_server: &Res<AssetServer>,
+) {
+    object
+        .spawn((get_button_bundle(texture_handle), PlayButton {}))
+        .with_children(|parent| {
+            parent.spawn(get_text_bundle("Play", asset_server));
+        });
+}
+
+fn spawn_settings_button(
+    object: &mut ChildBuilder,
+    texture_handle: Handle<Image>,
+    asset_server: &Res<AssetServer>,
+) {
+    object
+        .spawn((get_button_bundle(texture_handle), SettingsButton {}))
+        .with_children(|parent| {
+            parent.spawn(get_text_bundle("Settings", asset_server));
+        });
+}
+
+fn spawn_exit_button(
+    object: &mut ChildBuilder,
+    texture_handle: Handle<Image>,
+    asset_server: &Res<AssetServer>,
+) {
+    object
+        .spawn((get_button_bundle(texture_handle), ExitButton {}))
+        .with_children(|parent| {
+            parent.spawn(get_text_bundle("Exit", asset_server));
+        });
+}
+
+pub fn main_menu_setup(commands: &mut Commands, asset_server: &Res<AssetServer>) -> Entity {
+    let texture_handle = asset_server.load("sprites/button.png");
+    let main_menu_entity = commands
+        .spawn((
+            NodeBundle {
+                style: Style {
+                    flex_direction: FlexDirection::Column,
+                    justify_content: JustifyContent::Center,
+                    align_items: AlignItems::Center,
+                    size: Size::new(Val::Percent(100.0), Val::Percent(100.0)),
+                    gap: Size::new(Val::Px(8.0), Val::Px(15.0)),
+                    ..default()
+                },
+                ..default()
+            },
+            MainMenu {},
+        ))
+        .with_children(|parent| {
+            parent
+                .spawn(NodeBundle {
+                    style: Style {
+                        justify_content: JustifyContent::Center,
+                        ..default()
+                    },
+                    ..default()
+                })
+                .with_children(|parent| {
+                    parent.spawn(TextBundle {
+                        text: Text {
+                            sections: vec![TextSection::new(
+                                "Space jump",
+                                get_text_style(asset_server, 60.0, TITLE_TEXT_COLOR),
+                            )],
+                            alignment: TextAlignment::Center,
+                            ..default()
+                        },
+                        style: Style {
+                            margin: UiRect {
+                                bottom: Val::Px(30.0),
+                                ..default()
+                            },
+                            ..default()
+                        },
+                        ..default()
+                    });
+                });
+            // Play Button
+            spawn_play_button(parent, texture_handle.clone(), asset_server);
+            spawn_settings_button(parent, texture_handle.clone(), asset_server);
+            spawn_exit_button(parent, texture_handle.clone(), asset_server);
+        })
+        .id();
+
+    return main_menu_entity;
 }
 
 pub fn destroy_menu_background() {
