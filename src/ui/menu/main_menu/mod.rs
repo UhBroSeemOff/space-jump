@@ -30,8 +30,8 @@ pub fn initialize_menu(commands: Commands, asset_server: Res<AssetServer>) {
     render_menu_ui(commands, asset_server);
 }
 
-pub fn destroy_menu() {
+pub fn destroy_menu(commands: Commands, main_menu_query: Query<Entity, With<MainMenu>>) {
     destroy_menu_background();
     remove_menu_music();
-    destroy_menu_ui();
+    destroy_menu_ui(commands, main_menu_query);
 }
