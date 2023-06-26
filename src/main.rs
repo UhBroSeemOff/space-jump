@@ -7,9 +7,11 @@ use ui::UIPlugin;
 use bevy::{prelude::*, window::*};
 use camera::CameraPlugin;
 use external_system::ExternalPlugin;
+use entities::EntitiesPlugin;
 
 pub mod camera;
 pub mod external_system;
+pub mod entities;
 
 const RESOLUTION: Vec2 = Vec2 {
     x: 1920.0,
@@ -25,6 +27,7 @@ fn main() {
         .add_plugin(ExternalPlugin)
         .add_plugin(CameraPlugin)
         .add_plugin(UIPlugin)
+        .add_plugin(EntitiesPlugin)
         .add_state::<ApplicationState>()
         .run();
 }
