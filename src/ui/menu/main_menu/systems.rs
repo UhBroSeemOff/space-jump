@@ -1,6 +1,8 @@
 use bevy::app::AppExit;
 use bevy::prelude::*;
 
+use crate::resources::ApplicationState;
+
 use super::components::*;
 use super::constants::*;
 
@@ -147,4 +149,42 @@ pub fn remove_menu_music() {
 
 pub fn destroy_menu_ui() {
     println!("Destroy menu ui");
+}
+
+pub fn play_button_interaction(
+    mut game_state: ResMut<NextState<ApplicationState>>,
+    mut interaction_query: Query<
+        (&Interaction, &mut BackgroundColor),
+        (Changed<Interaction>, With<PlayButton>),
+    >,
+) {
+    for (interaction, mut color) in &mut interaction_query {
+        match *interaction {
+            Interaction::Clicked => {
+                *color = PRESSED_BUTTON_COLOR.into();
+                game_state.set(ApplicationState::Game);
+            }
+            Interaction::Hovered => {}
+            Interaction::None => {}
+        }
+    }
+}
+
+pub fn exit_button_interaction(
+    mut app_exit_event_writer: EventWriter<AppExit>,
+    mut interaction_query: Query<
+        (&Interaction, &mut BackgroundColor),
+        (Changed<Interaction>, With<ExitButton>),
+    >,
+) {
+    for (interaction, mut color) in &mut interaction_query {
+        match *interaction {
+            Interaction::Clicked => {
+                *color = PRESSED_BUTTON_COLOR.into();
+                app_exit_event_writer.send(AppExit);
+            }
+            Interaction::Hovered => {}
+            Interaction::None => {}
+        }
+    }
 }
