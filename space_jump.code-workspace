@@ -9,10 +9,12 @@
 		"editor.formatOnSave": true,
 		"cSpell.words": [
 			"Borderless",
+			"despawn",
 			"egui",
 			"Fullscreen",
 			"Inspectable",
 			"kira"
-		]
+		],
+		"sarif-viewer.connectToGithubCodeScanning": "off"
 	}
 }
