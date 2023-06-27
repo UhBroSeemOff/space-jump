@@ -1,8 +1,10 @@
 pub mod resources;
 pub mod ui;
+pub mod assets_cache;
 
 use resources::*;
 use ui::UIPlugin;
+use assets_cache::AssetsCachePlugin;
 
 use bevy::{prelude::*, window::*};
 use camera::CameraPlugin;
@@ -26,6 +28,7 @@ fn main() {
         .add_plugin(ExternalPlugin)
         .add_plugin(CameraPlugin)
         .add_plugin(UIPlugin)
+        .add_plugin(AssetsCachePlugin)
         .run();
 }
 
