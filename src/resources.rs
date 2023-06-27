@@ -23,10 +23,10 @@ pub enum GameState {
     PauseMenu,
 }
 
-#[derive(States, Debug, Clone, Eq, PartialEq, Hash, Default)]
+#[derive(States, Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
 pub enum PauseMenuState {
     #[default]
-    Resume,
+    Pause,
     Settings,
     MainMenu,
 }

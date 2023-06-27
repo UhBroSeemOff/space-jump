@@ -1,5 +1,5 @@
-pub mod ui;
 pub mod resources;
+pub mod ui;
 
 use resources::*;
 use ui::UIPlugin;
@@ -21,11 +21,11 @@ const TITLE: &str = "Space Jump";
 fn main() {
     let default_plugin = configure_default_plugin();
     App::new()
+        .add_state::<ApplicationState>()
         .add_plugins(default_plugin)
         .add_plugin(ExternalPlugin)
         .add_plugin(CameraPlugin)
         .add_plugin(UIPlugin)
-        .add_state::<ApplicationState>()
         .run();
 }
 
