@@ -27,7 +27,7 @@ jobs:
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
             target/
-          key: ${{ runner.os }}-${{ env.EXECUTABLE_FILE_NAME }}-${{ hashFiles('**/Cargo.toml') }}
+          key: build-${{ runner.os }}-${{ env.EXECUTABLE_FILE_NAME }}-${{ hashFiles('**/Cargo.toml') }}
           
     - name: Install stable toolchain
       uses: dtolnay/rust-toolchain@stable
