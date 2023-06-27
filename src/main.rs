@@ -9,9 +9,11 @@ use assets_cache::AssetsCachePlugin;
 use bevy::{prelude::*, window::*};
 use camera::CameraPlugin;
 use external_system::ExternalPlugin;
+use entities::EntitiesPlugins;
 
 pub mod camera;
 pub mod external_system;
+pub mod entities;
 
 const RESOLUTION: Vec2 = Vec2 {
     x: 1920.0,
@@ -29,6 +31,7 @@ fn main() {
         .add_plugin(CameraPlugin)
         .add_plugin(UIPlugin)
         .add_plugin(AssetsCachePlugin)
+        .add_plugins(EntitiesPlugins)
         .run();
 }
 
