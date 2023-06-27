@@ -50,6 +50,7 @@ pub fn unload_level(
         .for_each(|level| commands.entity(level).despawn())
 }
 
+// TODO: Remove test system
 pub fn load_test_scene(mut event: EventWriter<LoadLevelEvent>) {
     event.send(LoadLevelEvent {
         scene_asset_path: "./assets/scenes/test.scn.ron",
