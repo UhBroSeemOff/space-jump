@@ -1,54 +1,29 @@
+pub mod assets_cache;
+pub mod camera;
+pub mod entities;
+pub mod external_system;
+pub mod game_play;
 pub mod resources;
 pub mod ui;
 pub mod assets_cache;
 
-use resources::*;
-use ui::UIPlugin;
+use bevy::prelude::*;
 use assets_cache::AssetsCachePlugin;
-
-use bevy::{prelude::*, window::*};
 use camera::CameraPlugin;
+use entities::EntitiesPlugins;
 use external_system::ExternalPlugin;
-
-pub mod camera;
-pub mod external_system;
-
-const RESOLUTION: Vec2 = Vec2 {
-    x: 1920.0,
-    y: 1080.0,
-};
-
-const TITLE: &str = "Space Jump";
+use game_play::GamePlayPlugins;
+use resources::ApplicationState;
+use ui::UIPlugin;
 
 fn main() {
-    let default_plugin = configure_default_plugin();
     App::new()
         .add_state::<ApplicationState>()
-        .add_plugins(default_plugin)
         .add_plugin(ExternalPlugin)
         .add_plugin(CameraPlugin)
         .add_plugin(UIPlugin)
         .add_plugin(AssetsCachePlugin)
+        .add_plugins(EntitiesPlugins)
+        .add_plugins(GamePlayPlugins)
         .run();
-}
-
-fn configure_default_plugin() -> bevy::app::PluginGroupBuilder {
-    let window_plugin = initialize_window_plugin();
-    DefaultPlugins.set(window_plugin)
-}
-
-fn initialize_window_plugin() -> WindowPlugin {
-    WindowPlugin {
-        primary_window: Some(initialize_primary_window()),
-        ..default()
-    }
-}
-
-fn initialize_primary_window() -> Window {
-    Window {
-        mode: WindowMode::BorderlessFullscreen,
-        title: TITLE.to_owned(),
-        resolution: WindowResolution::new(RESOLUTION.x, RESOLUTION.y),
-        ..default()
-    }
 }

@@ -1,0 +1,83 @@
+(
+  entities: {
+    9: (
+      components: {
+        "bevy_transform::components::transform::Transform": (
+          translation: (
+            x: 0.0,
+            y: 0.0,
+            z: 0.0,
+          ),
+          rotation: (0.0, 0.0, 0.0, 1.0),
+          scale: (
+            x: 1.0,
+            y: 1.0,
+            z: 1.0,
+          ),
+        ),
+        "bevy_transform::components::global_transform::GlobalTransform": ((
+          matrix3: (
+            x_axis: (
+              x: 1.0,
+              y: 0.0,
+              z: 0.0,
+            ),
+            y_axis: (
+              x: 0.0,
+              y: 1.0,
+              z: 0.0,
+            ),
+            z_axis: (
+              x: 0.0,
+              y: 0.0,
+              z: 1.0,
+            ),
+          ),
+          translation: (
+            x: 0.0,
+            y: 0.0,
+            z: 999.9,
+          ),
+        )),
+        "bevy_hierarchy::components::parent::Parent": ((
+          generation: 0,
+          index: 4,
+        )),
+        "bevy_core::name::Name": (
+          hash: 16210534025566954057,
+          name: "Camera Gizmo",
+        ),
+        "bevy_render::view::visibility::render_layers::RenderLayers": (524288),
+        "bevy_render::view::visibility::Visibility": Inherited,
+        "bevy_render::view::visibility::ComputedVisibility": (
+          flags: (
+            bits: 2,
+          ),
+        ),
+        "bevy_asset::handle::Handle<bevy_render::mesh::mesh::Mesh>": (
+          id: Id("8ecbac0f-f545-4473-ad43-e1f4243af51e", 940644520084229286),
+        ),
+        "bevy_render::primitives::Aabb": (
+          center: (
+            x: 0.0,
+            y: 0.0,
+            z: 0.0,
+          ),
+          half_extents: (
+            x: 0.3,
+            y: 0.3,
+            z: 0.3,
+          ),
+        ),
+        "bevy_asset::handle::Handle<bevy_pbr::pbr_material::StandardMaterial>": (
+          id: Id("7494888b-c082-457b-aacf-517228cc0c22", 1642388367748074930),
+        ),
+      },
+    ),
+    10: (
+      components: {
+        "space_jump::game_play::level::components::Level": (),
+      },
+    ),
+  },
+)
