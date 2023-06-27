@@ -4,8 +4,6 @@ pub mod systems;
 use bevy::prelude::{App, Plugin};
 use main_menu::MainMenuPlugin;
 
-use crate::resources::ApplicationState;
-
 pub struct MenuPlugin;
 
 impl Plugin for MenuPlugin {
