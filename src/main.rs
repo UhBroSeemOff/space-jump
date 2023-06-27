@@ -5,7 +5,6 @@ pub mod external_system;
 pub mod game_play;
 pub mod resources;
 pub mod ui;
-pub mod assets_cache;
 
 use bevy::prelude::*;
 use assets_cache::AssetsCachePlugin;

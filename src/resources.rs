@@ -4,6 +4,7 @@ use bevy::prelude::States;
 pub enum ApplicationState {
     #[default]
     MainMenu,
+    LevelPick,
     Game,
 }
 
