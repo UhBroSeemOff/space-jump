@@ -1,14 +1,17 @@
-pub mod objects;
 
-use bevy::prelude::*;
+pub mod asteroid;
 
-use objects::ObjectsPlugin;
+use bevy::{
+    prelude::PluginGroup,
+    app::PluginGroupBuilder,
+};
+use asteroid::AsteroidPlugin;
 
-pub struct EntitiesPlugin;
+pub struct EntitiesPlugins;
 
-impl Plugin for EntitiesPlugin {
-    fn build(&self, app: &mut App) {
-        app.
-            add_plugin(ObjectsPlugin);
+impl PluginGroup for EntitiesPlugins {
+    fn build(self) -> PluginGroupBuilder {
+        PluginGroupBuilder::start::<Self>()
+            .add(AsteroidPlugin)
     }
 }

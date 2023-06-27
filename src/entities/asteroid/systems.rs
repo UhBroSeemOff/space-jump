@@ -7,20 +7,26 @@ use bevy::{
         Vec3,
         Vec2,
         EventWriter,
+        Name,
     },
     transform::TransformBundle,
 };
 use bevy_rapier2d::prelude::*;
 use rand::Rng;
 
-use super::{components::AsteroidProperties, events::SpawnAsteroidEvent};
+use super::{
+    events::AsteroidProperties,
+    events::SpawnAsteroidEvent,
+    components::Asteroid,
+};
 
 pub fn setup(
     mut event_writer: EventWriter<SpawnAsteroidEvent>,
 ) {
 
-    // Test spawn
-    let properties: AsteroidProperties = 
+    // TODO: Remove asteroid test spawn
+    // Test spawn start
+    let properties: AsteroidProperties =
     AsteroidProperties {
         position: Vec3::new(
             rand::thread_rng().gen_range(-100.0 .. 100.0),
@@ -30,6 +36,7 @@ pub fn setup(
         mass: rand::thread_rng().gen_range(1.0 .. 100.0),
     };
     event_writer.send(SpawnAsteroidEvent{properties});
+    // Test spawn end
 
 }
 
@@ -53,7 +60,11 @@ pub fn spawn_asteroid(
     }
 
     commands
-        .spawn(RigidBody::Dynamic)
+        .spawn((
+            Asteroid,
+            RigidBody::Dynamic,
+            Name::new(format!("Asteroid")),
+        ))
         .insert(Collider::ball(radius))
         .insert(Restitution::coefficient(0.0))
         .insert(TransformBundle::from(Transform::from_translation(position)))

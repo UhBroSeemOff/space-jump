@@ -5,7 +5,10 @@ mod systems;
 mod components;
 mod events;
 
-use self::systems::{setup, spawn_asteroid};
+use self::systems::{
+    setup,
+    spawn_asteroid
+};
 use self::events::SpawnAsteroidEvent;
 
 pub struct AsteroidPlugin;
@@ -15,6 +18,7 @@ impl Plugin for AsteroidPlugin {
         app
             .add_startup_system(setup)
             .add_system(spawn_asteroid)
-            .add_event::<SpawnAsteroidEvent>();
+            .add_event::<SpawnAsteroidEvent>()
+            ;
     }
 }

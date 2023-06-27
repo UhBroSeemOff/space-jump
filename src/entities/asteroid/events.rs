@@ -1,9 +1,11 @@
 
-use bevy::prelude::{Component, Vec3};
+use bevy::prelude::Vec3;
 
-#[derive(Component)]
 pub struct AsteroidProperties {
     pub position: Vec3,
     pub radius: f32,
     pub mass: f32,
+}
+pub struct SpawnAsteroidEvent {
+    pub properties: AsteroidProperties,
 }

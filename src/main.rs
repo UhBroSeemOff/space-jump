@@ -7,7 +7,7 @@ use ui::UIPlugin;
 use bevy::{prelude::*, window::*};
 use camera::CameraPlugin;
 use external_system::ExternalPlugin;
-use entities::EntitiesPlugin;
+use entities::EntitiesPlugins;
 
 pub mod camera;
 pub mod external_system;
@@ -27,7 +27,7 @@ fn main() {
         .add_plugin(ExternalPlugin)
         .add_plugin(CameraPlugin)
         .add_plugin(UIPlugin)
-        .add_plugin(EntitiesPlugin)
+        .add_plugins(EntitiesPlugins)
         .add_state::<ApplicationState>()
         .run();
 }
