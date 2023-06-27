@@ -10,7 +10,7 @@ pub struct AssetsCache {
 }
 
 pub struct Fonts {
-    pub cyrillic_pixel: Handle<Font>,
+    pub main: Handle<Font>,
 }
 
 pub struct Sprites {
@@ -29,7 +29,7 @@ impl FromWorld for AssetsCache {
 
         return AssetsCache {
             fonts: Fonts {
-                default: assets_loader.load("fonts/CyrillicPixel.ttf"),
+                main: assets_loader.load("fonts/CyrillicPixel.ttf"),
             },
             sprites: Sprites {
                 characters: CharactersSprites {},
