@@ -28,7 +28,6 @@ fn main() {
         .add_plugin(CameraPlugin)
         .add_plugin(UIPlugin)
         .add_plugins(EntitiesPlugins)
-        .add_state::<ApplicationState>()
         .run();
 }
 
