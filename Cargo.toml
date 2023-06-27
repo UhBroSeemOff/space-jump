@@ -8,7 +8,9 @@ edition = "2021"
 [dependencies]
 bevy = "0.10.1"
 rand = "0.8.5"
+spew = "0.2.2"
 bevy-inspector-egui = "0.18.3"
+bevy_editor_pls = "0.4.0"
 
 [dependencies.bevy_rapier2d]
 version = "0.21"
