@@ -12,3 +12,5 @@ pub struct LevelBundle {
     pub name: Name,
     pub level: Level,
 }
+
+// TODO: добавить структуру для определения количества открытых уровней

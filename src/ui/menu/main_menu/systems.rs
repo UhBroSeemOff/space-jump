@@ -164,7 +164,7 @@ pub fn play_button_interaction(
         match *interaction {
             Interaction::Clicked => {
                 *color = PRESSED_BUTTON_COLOR.into();
-                game_state.set(ApplicationState::Game);
+                game_state.set(ApplicationState::LevelPick);
             }
             Interaction::Hovered => {}
             Interaction::None => {}
