@@ -26,6 +26,7 @@ const MOUSE_BINDINGS: [(MouseButton, InputAction); 2] = [
     (MouseButton::Right, InputAction::Pull),
 ];
 
+// TODO: Добавить отложенную реакцию на события инпута
 const KEYBOARD_BINDINGS: [(KeyCode, InputAction); 3] = [
     (KeyCode::R, InputAction::Restart),
     (KeyCode::E, InputAction::Throw),
