@@ -1,5 +1,5 @@
 use bevy::{
-    prelude::{AssetServer, FromWorld, Handle, Image, Resource},
+    prelude::{AssetServer, FromWorld, Handle, Resource},
     text::Font,
 };
 
