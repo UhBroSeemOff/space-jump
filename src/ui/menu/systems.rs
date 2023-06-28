@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::resources::{ApplicationState, GameState};
+use crate::resources::GameState;
 
 pub fn toggle_game_status(
     mut game_status_state: ResMut<NextState<GameState>>,
