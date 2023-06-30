@@ -1,0 +1,35 @@
+name: Check compilation
+
+on: [pull_request]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  static-analysis:
+    env:
+      EXECUTABLE_FILE_NAME: space_jump
+      RUSTFLAGS: -D warnings
+
+    runs-on: windows-latest
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v3
+    
+    - name: Cache
+      uses: actions/cache@v2
+      with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: check-${{ runner.os }}-${{ env.EXECUTABLE_FILE_NAME }}-${{ hashFiles('**/Cargo.toml') }}
+          
+    - name: Install stable toolchain
+      uses: dtolnay/rust-toolchain@stable
+    
+    - name: Check if code can compile
+      run: cargo check
+    
