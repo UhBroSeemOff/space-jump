@@ -1,6 +1,9 @@
 use bevy::prelude::*;
 use super::constants::*;
 
+// TODO: add destroy_screen function and reuse it
+// TODO: add colors to constants, add reusable style functions
+
 pub fn get_button_bundle(texture_handle: Handle<Image>) -> ButtonBundle {
     ButtonBundle {
         image: UiImage {

@@ -1,6 +1,7 @@
 use bevy::{prelude::*, text::TextStyle};
 
-// TODO: поменять цвета
+// TODO: change basic colors
+// TODO: change/add fonts
 pub const TITLE_TEXT_COLOR: Color = Color::rgb(1.0, 1.0, 1.0);
 pub const NORMAL_BUTTON_TEXT_COLOR: Color = Color::rgb(1.0, 1.0, 1.0);
 pub const PRESSED_BUTTON_COLOR: Color = Color::rgb(0.35, 0.75, 0.35);
