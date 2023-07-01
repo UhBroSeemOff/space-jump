@@ -149,7 +149,7 @@ pub fn remove_menu_music() {
 
 pub fn destroy_menu_ui(mut commands: Commands, main_menu_query: Query<Entity, With<MainMenu>>) {
     if let Ok(main_menu_entity) = main_menu_query.get_single() {
-        commands.entity(main_menu_entity).despawn_recursive();
+        commands.entity(main_menu_entity).despawn();
     }
 }
 

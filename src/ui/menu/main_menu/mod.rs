@@ -15,10 +15,7 @@ impl Plugin for MainMenuPlugin {
         app.add_system(render_menu.in_schedule(OnEnter(ApplicationState::MainMenu)))
             .add_system(destroy_menu.in_schedule(OnExit(ApplicationState::MainMenu)))
             .add_systems(
-                (
-                    play_button_interaction,
-                    exit_button_interaction,
-                )
+                (play_button_interaction, exit_button_interaction)
                     .in_set(OnUpdate(ApplicationState::MainMenu)),
             );
     }

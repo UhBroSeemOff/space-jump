@@ -14,12 +14,13 @@ use entities::EntitiesPlugins;
 use external_system::ExternalPlugin;
 use game_play::GamePlayPlugins;
 use input::InputPlugin;
-use resources::ApplicationState;
+use resources::{ApplicationState, GameState};
 use ui::UIPlugin;
 
 fn main() {
     App::new()
         .add_state::<ApplicationState>()
+        .add_state::<GameState>()
         .add_plugin(ExternalPlugin)
         .add_plugin(CameraPlugin)
         .add_plugin(UIPlugin)

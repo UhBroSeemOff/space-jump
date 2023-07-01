@@ -1,9 +1,9 @@
-pub mod menu;
 pub mod level_pick;
+pub mod menu;
 
+use bevy::prelude::{App, Plugin};
 use level_pick::LevelPickPlugin;
 use menu::MenuPlugin;
-use bevy::prelude::{App, Plugin};
 
 pub struct UIPlugin;
 
@@ -14,4 +14,3 @@ impl Plugin for UIPlugin {
         app.add_plugin(MenuPlugin).add_plugin(LevelPickPlugin);
     }
 }
-
