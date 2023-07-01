@@ -4,7 +4,6 @@ use crate::ApplicationState;
 use bevy::prelude::*;
 
 pub mod components;
-pub mod constants;
 pub mod systems;
 
 use components::*;

@@ -4,7 +4,7 @@ use bevy::prelude::*;
 use crate::resources::ApplicationState;
 
 use super::components::*;
-use super::constants::*;
+use super::super::super::constants::*;
 
 pub fn render_menu_background() {
     println!("Spawn menu background");
@@ -129,7 +129,6 @@ pub fn main_menu_setup(commands: &mut Commands, asset_server: &Res<AssetServer>)
                         ..default()
                     });
                 });
-            // Play Button
             spawn_play_button(parent, texture_handle.clone(), asset_server);
             spawn_settings_button(parent, texture_handle.clone(), asset_server);
             spawn_exit_button(parent, texture_handle.clone(), asset_server);

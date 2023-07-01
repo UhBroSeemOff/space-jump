@@ -1,55 +1,12 @@
 use bevy::prelude::*;
 
-use crate::resources::GameState;
+use crate::resources::{GameState, ApplicationState};
 
 use super::components::*;
-
-pub const NORMAL_BUTTON_TEXT_COLOR: Color = Color::rgb(1.0, 1.0, 1.0);
-pub const PRESSED_BUTTON_COLOR: Color = Color::rgb(0.35, 0.75, 0.35);
-
-pub fn get_text_style(asset_server: &Res<AssetServer>, font_size: f32, color: Color) -> TextStyle {
-    TextStyle {
-        font: asset_server.load("fonts/CyrillicPixel.ttf"),
-        font_size: font_size,
-        color: color,
-    }
-}
-
-pub const DEFAULT_BUTTON_STYLE: Style = Style {
-    justify_content: JustifyContent::Center,
-    align_items: AlignItems::Center,
-    size: Size::new(Val::Px(280.0), Val::Px(80.0)),
-    ..Style::DEFAULT
-};
+use super::super::super::systems::*;
 
 pub fn render_menu_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
     pause_menu_setup(&mut commands, &asset_server);
-}
-
-fn get_button_bundle(texture_handle: Handle<Image>) -> ButtonBundle {
-    ButtonBundle {
-        image: UiImage {
-            texture: texture_handle.clone(),
-            ..default()
-        },
-        style: DEFAULT_BUTTON_STYLE,
-        background_color: NORMAL_BUTTON_TEXT_COLOR.into(),
-        ..default()
-    }
-}
-
-fn get_text_bundle(button_text: &str, asset_server: &Res<AssetServer>) -> TextBundle {
-    TextBundle {
-        text: Text {
-            sections: vec![TextSection::new(
-                button_text,
-                get_text_style(asset_server, 30.0, NORMAL_BUTTON_TEXT_COLOR),
-            )],
-            alignment: TextAlignment::Center,
-            ..default()
-        },
-        ..default()
-    }
 }
 
 fn spawn_resume_button(
@@ -128,13 +85,17 @@ pub fn settings_button_interaction(
 
 pub fn set_pause_menu_state(
     keyboard_input: Res<Input<KeyCode>>,
+    application_state: Res<State<ApplicationState>>,
     game_state: Res<State<GameState>>,
     mut game_state_next_state: ResMut<NextState<GameState>>,
 ) {
-    if keyboard_input.just_pressed(KeyCode::Escape) {
+    let should_trigger_pause_menu =
+        keyboard_input.just_pressed(KeyCode::Escape) && 
+        application_state.0 == ApplicationState::Game;
+    if should_trigger_pause_menu {
         if game_state.0 == GameState::Game {
             game_state_next_state.set(GameState::PauseMenu);
-        } else if game_state.0 != GameState::PauseMenu {
+        } else if game_state.0 == GameState::PauseMenu {
             game_state_next_state.set(GameState::Game);
         }
     }
