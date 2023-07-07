@@ -1,7 +1,7 @@
 pub struct MainMenuPlugin;
 
 use crate::ApplicationState;
-use bevy::prelude::*;
+use bevy::{prelude::*, window::PrimaryWindow};
 
 pub mod components;
 pub mod systems;
@@ -20,14 +20,17 @@ impl Plugin for MainMenuPlugin {
     }
 }
 
-pub fn render_menu(commands: Commands, asset_server: Res<AssetServer>) {
+pub fn render_menu(
+    commands: Commands,
+    asset_server: Res<AssetServer>,
+    window_query: Query<&Window, With<PrimaryWindow>>,
+) {
     add_menu_music();
-    render_menu_background();
-    render_menu_ui(commands, asset_server);
+    render_menu_ui(commands, asset_server, window_query);
 }
 
 pub fn destroy_menu(commands: Commands, main_menu_query: Query<Entity, With<MainMenu>>) {
     remove_menu_music();
-    destroy_menu_background();
+    // destroy_menu_background(commands, bg_query);
     destroy_menu_ui(commands, main_menu_query);
 }

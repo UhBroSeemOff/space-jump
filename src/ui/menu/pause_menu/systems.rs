@@ -35,7 +35,7 @@ pub fn pause_menu_setup(commands: &mut Commands, asset_server: &Res<AssetServer>
                     gap: Size::new(Val::Px(8.0), Val::Px(15.0)),
                     ..default()
                 },
-                background_color: Color::rgb(0.0, 0.5, 0.5).into(),
+                background_color: Color::rgb(0.2, 0.5, 0.5).into(),
                 transform: Transform::from_xyz(0.0, 0.0, 10.0),
                 ..default()
             },
@@ -119,6 +119,7 @@ pub fn set_pause_menu_state(
     let should_trigger_pause_menu =
         keyboard_input.just_pressed(KeyCode::Escape) && 
         application_state.0 == ApplicationState::Game;
+
     if should_trigger_pause_menu {
         if game_state.0 == GameState::Game {
             game_state_next_state.set(GameState::PauseMenu);

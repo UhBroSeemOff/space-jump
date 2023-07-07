@@ -8,7 +8,7 @@ use super::super::super::constants::*;
 use super::components::*;
 
 pub fn render_menu_background(
-    mut commands: Commands,
+    commands: &mut Commands,
     asset_server: &Res<AssetServer>,
     window_query: Query<&Window, With<PrimaryWindow>>,
 ) {
@@ -31,7 +31,7 @@ pub fn render_menu_background(
 
 pub fn destroy_menu_background(
     mut commands: Commands,
-    mut bg_query: Query<Entity, With<MainMenuBackground>>,
+    bg_query: Query<Entity, With<MainMenuBackground>>,
 ) {
     let menu_bg = bg_query.get_single().unwrap();
     commands.entity(menu_bg).despawn();
@@ -46,8 +46,8 @@ pub fn render_menu_ui(
     asset_server: Res<AssetServer>,
     window_query: Query<&Window, With<PrimaryWindow>>,
 ) {
+    render_menu_background(&mut commands, &asset_server, window_query);
     main_menu_setup(&mut commands, &asset_server);
-    render_menu_background(commands, &asset_server, window_query);
 }
 
 fn get_button_bundle(texture_handle: Handle<Image>) -> ButtonBundle {
