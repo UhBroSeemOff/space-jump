@@ -42,12 +42,24 @@ pub fn pause_menu_setup(commands: &mut Commands, asset_server: &Res<AssetServer>
             PauseMenu {},
         ))
         .with_children(|parent| {
-            // Resume Button
             spawn_resume_button(parent, texture_handle.clone(), asset_server);
+            spawn_main_menu_button(parent, texture_handle.clone(), asset_server);
         })
         .id();
 
     return pause_menu_entity;
+}
+
+fn spawn_main_menu_button(
+    object: &mut ChildBuilder,
+    texture_handle: Handle<Image>,
+    asset_server: &Res<AssetServer>,
+) {
+    object
+        .spawn((get_button_bundle(texture_handle), MainMenuButton {}))
+        .with_children(|parent| {
+            parent.spawn(get_text_bundle("Back to main menu", asset_server));
+        });
 }
 
 pub fn destroy_menu_ui(mut commands: Commands, pause_menu_query: Query<Entity, With<PauseMenu>>) {
@@ -77,6 +89,21 @@ pub fn settings_button_interaction(
     for interaction in &mut interaction_query {
         match *interaction {
             Interaction::Clicked => {}
+            Interaction::Hovered => {}
+            Interaction::None => {}
+        }
+    }
+}
+
+pub fn main_menu_button_interaction(
+    mut app_state: ResMut<NextState<ApplicationState>>,
+    mut interaction_query: Query<&Interaction, (Changed<Interaction>, With<MainMenuButton>)>,
+) {
+    for interaction in &mut interaction_query {
+        match *interaction {
+            Interaction::Clicked => {
+                app_state.set(ApplicationState::MainMenu);
+            }
             Interaction::Hovered => {}
             Interaction::None => {}
         }

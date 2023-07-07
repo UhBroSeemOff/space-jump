@@ -14,3 +14,6 @@ pub struct SettingsButton {}
 
 #[derive(Component)]
 pub struct MainMenuMusic {}
+
+#[derive(Component)]
+pub struct MainMenuBackground;
