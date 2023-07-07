@@ -4,15 +4,15 @@ use bevy::prelude::States;
 pub enum ApplicationState {
     #[default]
     MainMenu,
+    LevelPick,
     Game,
 }
 
 #[derive(States, Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
 pub enum MainMenuState {
     #[default]
-    Play,
+    MainScreen,
     Settings,
-    Exit,
 }
 
 #[derive(States, Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
@@ -29,4 +29,11 @@ pub enum PauseMenuState {
     Pause,
     Settings,
     MainMenu,
+}
+
+#[derive(States, Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
+pub enum SettingsState {
+    #[default]
+    Audio,
+    Video,
 }

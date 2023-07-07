@@ -1,10 +1,9 @@
 pub struct MainMenuPlugin;
 
 use crate::ApplicationState;
-use bevy::prelude::*;
+use bevy::{prelude::*, window::PrimaryWindow};
 
 pub mod components;
-pub mod constants;
 pub mod systems;
 
 use components::*;
@@ -12,26 +11,26 @@ use systems::*;
 
 impl Plugin for MainMenuPlugin {
     fn build(&self, app: &mut App) {
-        app.add_system(initialize_menu.in_schedule(OnEnter(ApplicationState::MainMenu)))
+        app.add_system(render_menu.in_schedule(OnEnter(ApplicationState::MainMenu)))
             .add_system(destroy_menu.in_schedule(OnExit(ApplicationState::MainMenu)))
             .add_systems(
-                (
-                    play_button_interaction,
-                    exit_button_interaction,
-                )
+                (play_button_interaction, exit_button_interaction)
                     .in_set(OnUpdate(ApplicationState::MainMenu)),
             );
     }
 }
 
-pub fn initialize_menu(commands: Commands, asset_server: Res<AssetServer>) {
-    render_menu_background();
+pub fn render_menu(
+    commands: Commands,
+    asset_server: Res<AssetServer>,
+    window_query: Query<&Window, With<PrimaryWindow>>,
+) {
     add_menu_music();
-    render_menu_ui(commands, asset_server);
+    render_menu_ui(commands, asset_server, window_query);
 }
 
 pub fn destroy_menu(commands: Commands, main_menu_query: Query<Entity, With<MainMenu>>) {
-    destroy_menu_background();
     remove_menu_music();
+    // destroy_menu_background(commands, bg_query);
     destroy_menu_ui(commands, main_menu_query);
 }

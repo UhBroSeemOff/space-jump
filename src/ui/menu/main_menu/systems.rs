@@ -1,20 +1,52 @@
 use bevy::app::AppExit;
 use bevy::prelude::*;
+use bevy::window::PrimaryWindow;
 
 use crate::resources::ApplicationState;
 
+use super::super::super::constants::*;
 use super::components::*;
-use super::constants::*;
 
-pub fn render_menu_background() {
-    println!("Spawn menu background");
+pub fn render_menu_background(
+    commands: &mut Commands,
+    asset_server: &Res<AssetServer>,
+    window_query: Query<&Window, With<PrimaryWindow>>,
+) {
+    let texture_handle = asset_server.load("sprites/menu_background.jpg");
+    let window = window_query.get_single().unwrap();
+
+    commands.spawn((
+        SpriteBundle {
+            texture: texture_handle.into(),
+            sprite: Sprite {
+                custom_size: Option::Some(Vec2::new(window.width(), window.height())),
+                ..default()
+            },
+            transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 1.0),
+            ..default()
+        },
+        MainMenuBackground {},
+    ));
+}
+
+pub fn destroy_menu_background(
+    mut commands: Commands,
+    bg_query: Query<Entity, With<MainMenuBackground>>,
+) {
+    let menu_bg = bg_query.get_single().unwrap();
+    commands.entity(menu_bg).despawn();
 }
 
 pub fn add_menu_music() {
     println!("Start some music");
 }
 
-pub fn render_menu_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
+pub fn render_menu_ui(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    window_query: Query<&Window, With<PrimaryWindow>>,
+) {
+    render_menu_background(&mut commands, &asset_server, window_query);
     main_menu_setup(&mut commands, &asset_server);
 }
 
@@ -43,9 +75,6 @@ fn get_text_bundle(button_text: &str, asset_server: &Res<AssetServer>) -> TextBu
         ..default()
     }
 }
-
-// TODO: Сделать функцию spawn_button, вынести её в сервисы
-// понять, как выносить компонент, связующий бандл в аргумент monkaHmm
 
 fn spawn_play_button(
     object: &mut ChildBuilder,
@@ -114,7 +143,7 @@ pub fn main_menu_setup(commands: &mut Commands, asset_server: &Res<AssetServer>)
                         text: Text {
                             sections: vec![TextSection::new(
                                 "Space jump",
-                                get_text_style(asset_server, 60.0, TITLE_TEXT_COLOR),
+                                get_text_style(asset_server, 90.0, TITLE_TEXT_COLOR),
                             )],
                             alignment: TextAlignment::Center,
                             ..default()
@@ -129,7 +158,6 @@ pub fn main_menu_setup(commands: &mut Commands, asset_server: &Res<AssetServer>)
                         ..default()
                     });
                 });
-            // Play Button
             spawn_play_button(parent, texture_handle.clone(), asset_server);
             spawn_settings_button(parent, texture_handle.clone(), asset_server);
             spawn_exit_button(parent, texture_handle.clone(), asset_server);
@@ -139,17 +167,13 @@ pub fn main_menu_setup(commands: &mut Commands, asset_server: &Res<AssetServer>)
     return main_menu_entity;
 }
 
-pub fn destroy_menu_background() {
-    println!("Destroy menu background");
-}
-
 pub fn remove_menu_music() {
     println!("Remove menu music");
 }
 
 pub fn destroy_menu_ui(mut commands: Commands, main_menu_query: Query<Entity, With<MainMenu>>) {
     if let Ok(main_menu_entity) = main_menu_query.get_single() {
-        commands.entity(main_menu_entity).despawn_recursive();
+        commands.entity(main_menu_entity).despawn();
     }
 }
 
@@ -164,7 +188,7 @@ pub fn play_button_interaction(
         match *interaction {
             Interaction::Clicked => {
                 *color = PRESSED_BUTTON_COLOR.into();
-                game_state.set(ApplicationState::Game);
+                game_state.set(ApplicationState::LevelPick);
             }
             Interaction::Hovered => {}
             Interaction::None => {}
