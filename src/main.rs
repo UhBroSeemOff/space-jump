@@ -16,7 +16,7 @@ use external_system::ExternalPlugin;
 use game_play::GamePlayPlugins;
 use input::InputPlugin;
 use mechanics::MechanicsPlugins;
-use resources::ApplicationState;
+use resources::{ApplicationState, GameState};
 use ui::UIPlugin;
 
 fn main() {
