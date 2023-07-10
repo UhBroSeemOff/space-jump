@@ -20,8 +20,7 @@ pub fn setup(mut event_writer: EventWriter<SpawnPlayerEvent>) {
     // TODO: Remove player test spawn
     // Test spawn start
     let properties: PlayerProperties = PlayerProperties {
-        position: Vec3::new(
-            rand::thread_rng().gen_range(-100.0..100.0),
+        position: Vec2::new(
             rand::thread_rng().gen_range(-100.0..100.0),
             rand::thread_rng().gen_range(-100.0..100.0),
         ),
@@ -40,7 +39,7 @@ pub fn spawn_player(
         return;
     }
 
-    let mut position: Vec3 = Vec3::new(0.0, 0.0, 0.0);
+    let mut position: Vec2 = Vec2::new(0.0, 0.0);
 
     for event in event_reader.iter() {
         position = event.properties.position;
@@ -56,7 +55,9 @@ pub fn spawn_player(
         ))
         .insert(Collider::cuboid(10.0, 25.0))
         .insert(Restitution::coefficient(0.0))
-        .insert(TransformBundle::from(Transform::from_translation(position)))
+        .insert(TransformBundle::from(Transform::from_translation(
+            Vec3::new(position.x, position.y, 0.0),
+        )))
         .insert(GravityScale(0.0))
         .insert(ColliderMassProperties::Mass(10.0))
         .insert(Velocity {
