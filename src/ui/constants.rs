@@ -8,7 +8,7 @@ pub const PRESSED_BUTTON_COLOR: Color = Color::rgb(0.35, 0.75, 0.35);
 
 pub fn get_text_style(asset_server: &Res<AssetServer>, font_size: f32, color: Color) -> TextStyle {
     TextStyle {
-        font: asset_server.load("fonts/CyrillicPixel.ttf"),
+        font: asset_server.load("fonts/AmaticBold.ttf"),
         font_size: font_size,
         color: color,
     }

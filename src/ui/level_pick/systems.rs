@@ -1,4 +1,4 @@
-use crate::{resources::{ApplicationState}};
+use crate::resources::ApplicationState;
 use bevy::prelude::*;
 
 use super::components::*;

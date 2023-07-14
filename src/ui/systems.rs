@@ -21,7 +21,7 @@ pub fn get_text_bundle(button_text: &str, asset_server: &Res<AssetServer>) -> Te
         text: Text {
             sections: vec![TextSection::new(
                 button_text,
-                get_text_style(asset_server, 30.0, NORMAL_BUTTON_TEXT_COLOR),
+                get_text_style(asset_server, 45.0, NORMAL_BUTTON_TEXT_COLOR),
             )],
             alignment: TextAlignment::Center,
             ..default()
