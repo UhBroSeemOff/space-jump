@@ -11,6 +11,7 @@ use super::components::*;
 pub fn render_menu(
     commands: Commands,
     asset_server: Res<AssetServer>,
+    // TODO: Use or remove
     // window_query: Query<&Window, With<PrimaryWindow>>,
 ) {
     add_menu_music();
