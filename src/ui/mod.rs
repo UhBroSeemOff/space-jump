@@ -1,11 +1,13 @@
+pub mod constants;
 pub mod level_pick;
 pub mod menu;
 pub mod systems;
-pub mod constants;
 
 use bevy::prelude::{App, Plugin};
 use level_pick::LevelPickPlugin;
 use menu::MenuPlugin;
+
+use crate::resources::{PauseMenuState, MainMenuState};
 
 pub struct UIPlugin;
 
@@ -13,6 +15,9 @@ pub struct UIPlugin;
 
 impl Plugin for UIPlugin {
     fn build(&self, app: &mut App) {
-        app.add_plugin(MenuPlugin).add_plugin(LevelPickPlugin);
+        app.add_state::<PauseMenuState>()
+            .add_state::<MainMenuState>()
+            .add_plugin(MenuPlugin)
+            .add_plugin(LevelPickPlugin);
     }
 }

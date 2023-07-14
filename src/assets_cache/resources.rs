@@ -29,7 +29,7 @@ impl FromWorld for AssetsCache {
 
         return AssetsCache {
             fonts: Fonts {
-                main: assets_loader.load("fonts/CyrillicPixel.ttf"),
+                main: assets_loader.load("fonts/AmaticBold.ttf"),
             },
             sprites: Sprites {
                 characters: CharactersSprites {},

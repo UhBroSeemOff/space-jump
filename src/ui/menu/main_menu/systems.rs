@@ -3,16 +3,32 @@ use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 
 use crate::resources::ApplicationState;
+use crate::ui::systems::*;
 
 use super::super::super::constants::*;
 use super::components::*;
 
+pub fn render_menu(
+    commands: Commands,
+    asset_server: Res<AssetServer>,
+    // TODO: Use or remove
+    // window_query: Query<&Window, With<PrimaryWindow>>,
+) {
+    add_menu_music();
+    render_menu_ui(commands, asset_server);
+}
+
+pub fn destroy_menu(commands: Commands, main_menu_query: Query<Entity, With<MainMenu>>) {
+    remove_menu_music();
+    destroy_menu_ui(commands, main_menu_query);
+}
+
 pub fn render_menu_background(
-    commands: &mut Commands,
-    asset_server: &Res<AssetServer>,
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
     window_query: Query<&Window, With<PrimaryWindow>>,
 ) {
-    let texture_handle = asset_server.load("sprites/menu_background.jpg");
+    let texture_handle = asset_server.load("sprites/menu_background.png");
     let window = window_query.get_single().unwrap();
 
     commands.spawn((
@@ -22,7 +38,7 @@ pub fn render_menu_background(
                 custom_size: Option::Some(Vec2::new(window.width(), window.height())),
                 ..default()
             },
-            transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 1.0),
+            transform: Transform::from_xyz(0.0, 0.0, 1.0),
             ..default()
         },
         MainMenuBackground {},
@@ -44,9 +60,9 @@ pub fn add_menu_music() {
 pub fn render_menu_ui(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
-    window_query: Query<&Window, With<PrimaryWindow>>,
+    // window_query: Query<&Window, With<PrimaryWindow>>,
 ) {
-    render_menu_background(&mut commands, &asset_server, window_query);
+    // render_menu_background(&mut commands, &asset_server, window_query);
     main_menu_setup(&mut commands, &asset_server);
 }
 
@@ -58,20 +74,6 @@ fn get_button_bundle(texture_handle: Handle<Image>) -> ButtonBundle {
         },
         style: DEFAULT_BUTTON_STYLE,
         background_color: NORMAL_BUTTON_TEXT_COLOR.into(),
-        ..default()
-    }
-}
-
-fn get_text_bundle(button_text: &str, asset_server: &Res<AssetServer>) -> TextBundle {
-    TextBundle {
-        text: Text {
-            sections: vec![TextSection::new(
-                button_text,
-                get_text_style(asset_server, 30.0, NORMAL_BUTTON_TEXT_COLOR),
-            )],
-            alignment: TextAlignment::Center,
-            ..default()
-        },
         ..default()
     }
 }
@@ -143,7 +145,7 @@ pub fn main_menu_setup(commands: &mut Commands, asset_server: &Res<AssetServer>)
                         text: Text {
                             sections: vec![TextSection::new(
                                 "Space jump",
-                                get_text_style(asset_server, 90.0, TITLE_TEXT_COLOR),
+                                get_text_style(asset_server, 100.0, TITLE_TEXT_COLOR),
                             )],
                             alignment: TextAlignment::Center,
                             ..default()
