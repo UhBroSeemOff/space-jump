@@ -1,7 +1,7 @@
 use bevy::{
     prelude::{
         info, BuildChildren, Commands, Entity, EventReader, EventWriter, Name, Query, Transform,
-        Vec2, Vec3, With,
+        Vec2, With,
     },
     transform::TransformBundle,
 };
@@ -36,7 +36,7 @@ pub fn spawn_asteroid(
         return;
     }
 
-    let mut position: Vec2 = Vec2::new(0.0, 0.0);
+    let mut position: Vec2 = Vec2::ZERO;
     let mut radius: f32 = 10.0;
     let mut mass: f32 = 10.0;
 
@@ -52,7 +52,8 @@ pub fn spawn_asteroid(
         .insert(Collider::ball(radius))
         .insert(Restitution::coefficient(0.0))
         .insert(TransformBundle::from(Transform::from_translation(
-            Vec3::new(position.x, position.y, 0.0),
+            // 'position' is a Vec2, but it takes a Vec3 to spawn, so an absent Z-axis value should be added
+            position.extend(0.0),
         )))
         .insert(GravityScale(0.0))
         .insert(ColliderMassProperties::Mass(mass))
