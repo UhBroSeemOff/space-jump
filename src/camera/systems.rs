@@ -13,6 +13,8 @@ pub fn follow_target(
     let mut camera = camera_query.single_mut();
 
     if let Ok(target) = target_query.get_single() {
-        camera.translation = target.translation.clone();
+        let mut temp_translation = target.translation.clone();
+        temp_translation.z = 0.0; // Since there is only 2 dimensions - Z is redundant
+        camera.translation = temp_translation;
     }
 }

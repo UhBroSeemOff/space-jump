@@ -1,7 +1,7 @@
-use bevy::prelude::Vec3;
+use bevy::prelude::Vec2;
 
 pub struct PlayerProperties {
-    pub position: Vec3,
+    pub position: Vec2,
 }
 
 pub struct SpawnPlayerEvent {

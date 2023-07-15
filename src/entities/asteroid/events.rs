@@ -1,8 +1,7 @@
-
-use bevy::prelude::Vec3;
+use bevy::prelude::Vec2;
 
 pub struct AsteroidProperties {
-    pub position: Vec3,
+    pub position: Vec2,
     pub radius: f32,
     pub mass: f32,
 }
