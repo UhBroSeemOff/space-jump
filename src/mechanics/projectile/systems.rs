@@ -26,7 +26,7 @@ pub fn send_collision_event(
         match collision_event {
             CollisionEvent::Started(entity1, entity2, _flags) => {
                 // It is unknown which 'entity' from 'Started()' is which,
-                // so here goes come ugly comparison with 'self_entity'
+                // so here goes ugly comparison with 'self_entity'
                 if *entity1 == self_entity {
                     event_collision_source = *entity1;
                     event_collision_target = *entity2;
