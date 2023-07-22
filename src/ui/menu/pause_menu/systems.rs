@@ -1,9 +1,10 @@
 use bevy::prelude::*;
 
-use crate::resources::{GameState, ApplicationState};
+use crate::resources::{ApplicationState, GameState, PauseMenuState};
+use crate::ui::constants::{HOVERED_BUTTON_COLOR, NORMAL_BUTTON_TEXT_COLOR};
 
-use super::components::*;
 use super::super::super::systems::*;
+use super::components::*;
 
 pub fn render_menu_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
     pause_menu_setup(&mut commands, &asset_server);
@@ -31,11 +32,11 @@ pub fn pause_menu_setup(commands: &mut Commands, asset_server: &Res<AssetServer>
                     flex_direction: FlexDirection::Column,
                     justify_content: JustifyContent::Center,
                     align_items: AlignItems::Center,
-                    size: Size::new(Val::Percent(100.0), Val::Percent(100.0)),
+                    size: Size::new(Val::Percent(20.0), Val::Percent(20.0)),
                     gap: Size::new(Val::Px(8.0), Val::Px(15.0)),
                     ..default()
                 },
-                background_color: Color::rgb(0.2, 0.5, 0.5).into(),
+                background_color: Color::rgb(0.0, 0.0, 0.0).into(),
                 transform: Transform::from_xyz(0.0, 0.0, 10.0),
                 ..default()
             },
@@ -70,42 +71,76 @@ pub fn destroy_menu_ui(mut commands: Commands, pause_menu_query: Query<Entity, W
 
 pub fn resume_button_interaction(
     mut game_state: ResMut<NextState<GameState>>,
-    mut interaction_query: Query<&Interaction, (Changed<Interaction>, With<ResumeButton>)>,
+    mut interaction_query: Query<
+        (&Interaction, &Children),
+        (Changed<Interaction>, With<ResumeButton>),
+    >,
+    mut text_query: Query<&mut Text>,
 ) {
-    for interaction in &mut interaction_query {
+    for (interaction, children) in &mut interaction_query {
+        let mut text = text_query.get_mut(children[0]).unwrap();
+
         match *interaction {
             Interaction::Clicked => {
                 game_state.set(GameState::Game);
             }
-            Interaction::Hovered => {}
-            Interaction::None => {}
+            Interaction::Hovered => {
+                text.sections[0].style.color = HOVERED_BUTTON_COLOR.into();
+            }
+            Interaction::None => {
+                text.sections[0].style.color = NORMAL_BUTTON_TEXT_COLOR.into();
+            }
         }
     }
 }
 
 pub fn settings_button_interaction(
-    mut interaction_query: Query<&Interaction, (Changed<Interaction>, With<SettingsButton>)>,
+    mut pause_menu_state: ResMut<NextState<PauseMenuState>>,
+    mut interaction_query: Query<
+        (&Interaction, &Children),
+        (Changed<Interaction>, With<SettingsButton>),
+    >,
+    mut text_query: Query<&mut Text>,
 ) {
-    for interaction in &mut interaction_query {
+    for (interaction, children) in &mut interaction_query {
+        let mut text = text_query.get_mut(children[0]).unwrap();
+
         match *interaction {
-            Interaction::Clicked => {}
-            Interaction::Hovered => {}
-            Interaction::None => {}
+            Interaction::Clicked => {
+                pause_menu_state.set(PauseMenuState::Settings);
+            }
+            Interaction::Hovered => {
+                text.sections[0].style.color = HOVERED_BUTTON_COLOR.into();
+            }
+            Interaction::None => {
+                text.sections[0].style.color = NORMAL_BUTTON_TEXT_COLOR.into();
+            }
         }
     }
 }
 
 pub fn main_menu_button_interaction(
     mut app_state: ResMut<NextState<ApplicationState>>,
-    mut interaction_query: Query<&Interaction, (Changed<Interaction>, With<MainMenuButton>)>,
+    mut interaction_query: Query<
+        (&Interaction, &Children),
+        (Changed<Interaction>, With<MainMenuButton>),
+    >,
+    mut text_query: Query<&mut Text>,
 ) {
-    for interaction in &mut interaction_query {
+    for (interaction, children) in &mut interaction_query {
+        let mut text = text_query.get_mut(children[0]).unwrap();
+
+        // TODO: remove duplicates interactions
         match *interaction {
             Interaction::Clicked => {
                 app_state.set(ApplicationState::MainMenu);
             }
-            Interaction::Hovered => {}
-            Interaction::None => {}
+            Interaction::Hovered => {
+                text.sections[0].style.color = HOVERED_BUTTON_COLOR.into();
+            }
+            Interaction::None => {
+                text.sections[0].style.color = NORMAL_BUTTON_TEXT_COLOR.into();
+            }
         }
     }
 }
@@ -116,9 +151,8 @@ pub fn set_pause_menu_state(
     game_state: Res<State<GameState>>,
     mut game_state_next_state: ResMut<NextState<GameState>>,
 ) {
-    let should_trigger_pause_menu =
-        keyboard_input.just_pressed(KeyCode::Escape) && 
-        application_state.0 == ApplicationState::Game;
+    let should_trigger_pause_menu = keyboard_input.just_pressed(KeyCode::Escape)
+        && application_state.0 == ApplicationState::Game;
 
     if should_trigger_pause_menu {
         if game_state.0 == GameState::Game {

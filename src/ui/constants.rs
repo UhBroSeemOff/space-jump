@@ -4,7 +4,8 @@ use bevy::{prelude::*, text::TextStyle};
 // TODO: change/add fonts
 pub const TITLE_TEXT_COLOR: Color = Color::rgb(1.0, 1.0, 1.0);
 pub const NORMAL_BUTTON_TEXT_COLOR: Color = Color::rgb(1.0, 1.0, 1.0);
-pub const PRESSED_BUTTON_COLOR: Color = Color::rgb(0.35, 0.75, 0.35);
+pub const PRESSED_BUTTON_COLOR: Color = Color::rgb(0.0, 0.0, 0.0);
+pub const HOVERED_BUTTON_COLOR: Color = Color::rgb(0.3, 0.7, 1.0);
 
 pub fn get_text_style(asset_server: &Res<AssetServer>, font_size: f32, color: Color) -> TextStyle {
     TextStyle {

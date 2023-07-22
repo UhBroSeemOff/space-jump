@@ -8,12 +8,7 @@ use crate::ui::systems::*;
 use super::super::super::constants::*;
 use super::components::*;
 
-pub fn render_menu(
-    commands: Commands,
-    asset_server: Res<AssetServer>,
-    // TODO: Use or remove
-    // window_query: Query<&Window, With<PrimaryWindow>>,
-) {
+pub fn render_menu(commands: Commands, asset_server: Res<AssetServer>) {
     add_menu_music();
     render_menu_ui(commands, asset_server);
 }
