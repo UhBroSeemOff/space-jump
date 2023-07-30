@@ -1,7 +1,7 @@
-use bevy::prelude::{Plugin, OnEnter, IntoSystemAppConfig};
+use bevy::prelude::{IntoSystemAppConfig, OnEnter, Plugin};
 
-pub(crate) mod components;
-pub(crate) mod events;
+mod components;
+mod events;
 mod systems;
 
 use crate::resources::ApplicationState;
@@ -14,7 +14,7 @@ pub struct PlayerPlugin;
 impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
         app.add_system(setup.in_schedule(OnEnter(ApplicationState::Game)))
-            .add_system(spawn_player.in_schedule(OnEnter(ApplicationState::Game)))
+            .add_system(spawn_player)
             .add_event::<SpawnPlayerEvent>()
             .add_event::<PlayerSpawnedEvent>();
     }
