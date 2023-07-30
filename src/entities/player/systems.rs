@@ -6,7 +6,6 @@ use bevy::{
     transform::TransformBundle,
 };
 use bevy_rapier2d::prelude::*;
-use rand::Rng;
 
 use crate::camera::components::CameraTarget;
 use crate::game_play::level::components::Level;
@@ -20,10 +19,7 @@ pub fn setup(mut event_writer: EventWriter<SpawnPlayerEvent>) {
     // TODO: Remove player test spawn
     // Test spawn start
     let properties: PlayerProperties = PlayerProperties {
-        position: Vec2::new(
-            rand::thread_rng().gen_range(-100.0..100.0),
-            rand::thread_rng().gen_range(-100.0..100.0),
-        ),
+        position: Vec2::ZERO,
     };
     event_writer.send(SpawnPlayerEvent { properties });
     // Test spawn end
