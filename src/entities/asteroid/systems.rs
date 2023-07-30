@@ -1,7 +1,7 @@
 use bevy::{
     prelude::{
-        default, info, AssetServer, BuildChildren, Commands, Entity, EventReader, EventWriter,
-        Name, Query, Res, Transform, Vec2, Vec3, With,
+        default, info, BuildChildren, Commands, Entity, EventReader, EventWriter, Name, Query, Res,
+        Transform, Vec2, Vec3, With,
     },
     sprite::{Sprite, SpriteBundle},
     transform::TransformBundle,
@@ -9,7 +9,7 @@ use bevy::{
 use bevy_rapier2d::prelude::*;
 use rand::Rng;
 
-use crate::game_play::level::components::Level;
+use crate::{assets_cache::resources::AssetsCache, game_play::level::components::Level};
 
 use super::{components::Asteroid, events::AsteroidProperties, events::SpawnAsteroidEvent};
 
@@ -42,7 +42,7 @@ pub fn setup(mut event_writer: EventWriter<SpawnAsteroidEvent>) {
 
 pub fn spawn_asteroid(
     mut commands: Commands,
-    asset_server: Res<AssetServer>,
+    asset_service: Res<AssetsCache>,
     mut event_reader: EventReader<SpawnAsteroidEvent>,
     level_query: Query<Entity, With<Level>>,
 ) {
@@ -62,7 +62,7 @@ pub fn spawn_asteroid(
                 RigidBody::Dynamic,
                 Name::new(format!("Asteroid")),
                 SpriteBundle {
-                    texture: asset_server.load("sprites/asteroid.png"),
+                    texture: asset_service.sprites.entities.asteroid.to_owned(),
                     sprite: Sprite {
                         // Since asteroid is expected to be round,
                         // sprite's size will be somewhat equal to a asteroid's diameter

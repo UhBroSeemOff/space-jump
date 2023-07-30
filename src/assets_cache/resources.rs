@@ -1,5 +1,5 @@
 use bevy::{
-    prelude::{AssetServer, FromWorld, Handle, Resource},
+    prelude::{AssetServer, FromWorld, Handle, Image, Resource},
     text::Font,
 };
 
@@ -20,7 +20,9 @@ pub struct Sprites {
 }
 
 pub struct UISprites {}
-pub struct EntitiesSprites {}
+pub struct EntitiesSprites {
+    pub asteroid: Handle<Image>,
+}
 pub struct CharactersSprites {}
 
 impl FromWorld for AssetsCache {
@@ -34,7 +36,9 @@ impl FromWorld for AssetsCache {
             sprites: Sprites {
                 characters: CharactersSprites {},
                 ui: UISprites {},
-                entities: EntitiesSprites {},
+                entities: EntitiesSprites {
+                    asteroid: assets_loader.load("sprites/asteroid.png"),
+                },
             },
         };
     }
